@@ -2,52 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Calculator</title>
     <style>
-        /* Global Styles */
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
-        
-        /* Calculator Design (iPhone Style) */
+        /* Screen ko fix karne ke liye */
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100vh; 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: #000; overflow: hidden;
+        }
+
+        /* Calculator Page - Ab ye screen ke beech mein rahega */
         #calc-screen { 
-            background: #000; height: 100vh; display: flex; flex-direction: column; 
-            justify-content: flex-end; align-items: center; padding-bottom: 30px; 
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; background: #000;
         }
         .calc-display { 
-            width: 90%; max-width: 350px; color: white; text-align: right; 
-            font-size: 4rem; margin-bottom: 20px; padding: 10px; overflow: hidden;
+            width: 90%; max-width: 320px; color: white; text-align: right; 
+            font-size: 3.5rem; margin-bottom: 10px; padding: 10px; box-sizing: border-box;
         }
         .calc-grid { 
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; 
-            width: 90%; max-width: 350px; 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; 
+            width: 90%; max-width: 320px; 
         }
         .btn { 
-            width: 75px; height: 75px; border-radius: 50%; border: none; 
-            font-size: 1.5rem; cursor: pointer; transition: 0.2s; font-weight: 500;
+            width: 65px; height: 65px; border-radius: 50%; border: none; 
+            font-size: 1.4rem; cursor: pointer; font-weight: 500;
         }
         .num { background: #333; color: white; }
         .op { background: #ff9f0a; color: white; }
         .special { background: #a5a5a5; color: black; }
-        .btn:active { opacity: 0.7; }
-        .zero { grid-column: span 2; width: 165px; border-radius: 40px; text-align: left; padding-left: 30px; }
+        .zero { grid-column: span 2; width: 142px; border-radius: 40px; text-align: left; padding-left: 25px; }
 
-        /* Valentine Page (Initially Hidden) */
+        /* Valentine Page - Pura Responsive */
         #valentine-page { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: #fff0f3; overflow-y: auto; text-align: center; z-index: 2000;
         }
         .card { 
-            background: white; margin: 30px auto; padding: 25px; width: 85%; 
-            max-width: 400px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
+            background: white; margin: 20px auto; padding: 20px; width: 85%; 
+            max-width: 380px; border-radius: 25px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
         }
-        .photo-grid { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
-        .box { width: 75px; height: 75px; border: 2px solid #ff4d6d; border-radius: 12px; overflow: hidden; background: #eee; }
+        .photo-grid { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 15px 0; }
+        .box { width: 70px; height: 70px; border: 2px solid #ff4d6d; border-radius: 10px; overflow: hidden; background: #f0f0f0; }
         .box img { width: 100%; height: 100%; object-fit: cover; }
-        .rose { position: fixed; top: -10%; animation: fall 4s linear infinite; font-size: 25px; z-index: 3000; }
+        
+        .rose { position: fixed; top: -10%; animation: fall 4s linear infinite; font-size: 25px; z-index: 3000; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
         
-        #yes-btn { background: #ff4d6d; color: white; padding: 12px 35px; border: none; border-radius: 15px; font-size: 1.2rem; cursor: pointer; }
-        #no-btn { position: absolute; background: #888; color: white; padding: 10px 20px; border: none; border-radius: 10px; cursor: pointer; }
+        #yes-btn { background: #ff4d6d; color: white; padding: 12px 30px; border: none; border-radius: 15px; font-size: 1.1rem; cursor: pointer; width: 100px; }
+        #no-btn { position: absolute; background: #888; color: white; padding: 10px 20px; border: none; border-radius: 10px; width: 80px; }
     </style>
 </head>
 <body>
@@ -79,18 +83,18 @@
 
     <div id="valentine-page">
         <div class="card">
-            <h1 style="color: #d90429; font-family: 'Dancing Script', cursive;">Happy Valentine's Day! ❤️</h1>
+            <h1 style="color: #d90429; font-size: 1.8rem;">Happy Valentine's Day! ❤️</h1>
             
-           
+          
 
-
-            <p style="color: #444; font-size: 0.95rem; line-height: 1.5;">
+            <p style="color: #444; font-size: 0.9rem; line-height: 1.4; padding: 0 10px;">
                 ""Happy Valentine's Day, my love! ❤️ Your smile lights up my world, and your love fills my life with joy. You're the best thing that's ever happened to me✨, and I'm so grateful to have you by my side😚.
 We’ve faced so many challenges 🧿and gone through tough times in our relationship, but the way we’ve handled everything together has only made us stronger ❤️. No matter what happens, I want you to stay by my side forever❤️🧿. Just like we've managed things until now, I know we will conquer everything ahead together. I love you more than words can ever say! ❤️🫂""
             </p>
 
-            <div style="height: 150px; position: relative; margin-top: 20px;">
-                <h3 style="color: #c9184a;">Can we keep this 'us' forever?</h3>
+            <div style="height: 140px; position: relative; margin-top: 20px;">
+                <h3 style="color: #c9184a; font-size: 1rem;">Can we keep this 'us' forever?
+Ab itna jhel hi liya hai, toh kya poori life jhelogi? 😂</h3>
                 <button id="yes-btn" onclick="celebrate()">YES!</button>
                 <button id="no-btn" onmouseover="moveNo()" ontouchstart="moveNo()">NO</button>
             </div>
@@ -102,8 +106,10 @@ We’ve faced so many challenges 🧿and gone through tough times in our relatio
         const disp = document.getElementById('display');
 
         function press(num) {
-            input += num;
-            disp.innerText = input;
+            if(input.length < 9) {
+                input += num;
+                disp.innerText = input;
+            }
         }
 
         function clr() {
@@ -115,10 +121,9 @@ We’ve faced so many challenges 🧿and gone through tough times in our relatio
             if (input === "3012") {
                 document.getElementById('calc-screen').style.display = 'none';
                 document.getElementById('valentine-page').style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Scroll bar lock
                 startRoses();
             } else {
-                alert("Incorrect Password!");
+                alert("Incorrect Pin!");
                 clr();
             }
         }
@@ -136,19 +141,18 @@ We’ve faced so many challenges 🧿and gone through tough times in our relatio
 
         function moveNo() {
             const btn = document.getElementById('no-btn');
-            // Isse button screen ke bahar nahi jayega
-            const maxX = window.innerWidth - btn.offsetWidth - 60;
-            const maxY = window.innerHeight - btn.offsetHeight - 60;
-            const x = Math.max(20, Math.floor(Math.random() * maxX));
-            const y = Math.max(20, Math.floor(Math.random() * maxY));
+            const maxX = window.innerWidth - btn.offsetWidth - 30;
+            const maxY = window.innerHeight - btn.offsetHeight - 30;
+            const x = Math.max(15, Math.floor(Math.random() * maxX));
+            const y = Math.max(15, Math.floor(Math.random() * maxY));
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
             btn.style.position = 'fixed';
         }
 
         function celebrate() {
-            alert("I Knew it! ❤️ I Love You Forever Baby! 😘");
-            for(let i=0; i<100; i++) setTimeout(startRoses, i*50);
+            alert("I Knew it! ❤️ I Love You So Much! 😘");
+            for(let i=0; i<50; i++) setTimeout(startRoses, i*100);
         }
     </script>
 </body>
