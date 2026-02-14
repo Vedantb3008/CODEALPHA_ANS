@@ -3,180 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Forever Valentine ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Calculator</title>
     <style>
-        :root {
-            --pink: #ff4d6d;
-            --dark-pink: #c9184a;
-            --bg: #fff0f3;
-        }
-
-        body { 
-            background: var(--bg); 
-            text-align: center; 
-            font-family: 'Poppins', sans-serif; 
-            overflow-x: hidden; 
-            min-height: 100vh; 
-            margin: 0;
-        }
-
-        /* Rose Rain */
-        .rose { 
-            position: fixed; 
-            top: -10%; 
-            animation: fall 4s linear infinite; 
-            z-index: 100; 
-            font-size: 25px;
-            pointer-events: none;
-        }
-        @keyframes fall { 
-            to { transform: translateY(110vh) rotate(360deg); } 
-        }
+        /* Global Styles */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
         
-        /* Card Design */
+        /* Calculator Design (iPhone Style) */
+        #calc-screen { 
+            background: #000; height: 100vh; display: flex; flex-direction: column; 
+            justify-content: flex-end; align-items: center; padding-bottom: 30px; 
+        }
+        .calc-display { 
+            width: 90%; max-width: 350px; color: white; text-align: right; 
+            font-size: 4rem; margin-bottom: 20px; padding: 10px; overflow: hidden;
+        }
+        .calc-grid { 
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; 
+            width: 90%; max-width: 350px; 
+        }
+        .btn { 
+            width: 75px; height: 75px; border-radius: 50%; border: none; 
+            font-size: 1.5rem; cursor: pointer; transition: 0.2s; font-weight: 500;
+        }
+        .num { background: #333; color: white; }
+        .op { background: #ff9f0a; color: white; }
+        .special { background: #a5a5a5; color: black; }
+        .btn:active { opacity: 0.7; }
+        .zero { grid-column: span 2; width: 165px; border-radius: 40px; text-align: left; padding-left: 30px; }
+
+        /* Valentine Page (Initially Hidden) */
+        #valentine-page { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #fff0f3; overflow-y: auto; text-align: center; z-index: 2000;
+        }
         .card { 
-            background: white; 
-            margin: 40px auto; 
-            padding: 30px; 
-            width: 85%; 
-            max-width: 450px;
-            border-radius: 30px; 
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-            position: relative; 
-            z-index: 10;
+            background: white; margin: 30px auto; padding: 25px; width: 85%; 
+            max-width: 400px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
         }
-
-        h1 { 
-            font-family: 'Dancing Script', cursive;
-            color: var(--dark-pink); 
-            font-size: 2.5rem; 
-            margin-bottom: 10px; 
-        }
-
-        /* Photos Section */
-        .photo-grid { 
-            display: flex; 
-            justify-content: center; 
-            gap: 12px; 
-            flex-wrap: wrap; 
-            margin: 20px 0; 
-        }
-        .box { 
-            width: 80px; 
-            height: 80px; 
-            background: #fff; 
-            border: 2px solid var(--pink); 
-            border-radius: 15px; 
-            font-size: 35px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
+        .photo-grid { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
+        .box { width: 75px; height: 75px; border: 2px solid #ff4d6d; border-radius: 12px; overflow: hidden; background: #eee; }
         .box img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Message */
-        .message { 
-            font-size: 1rem; 
-            color: #444; 
-            line-height: 1.6; 
-            padding: 20px; 
-            background: #fff5f6; 
-            border-radius: 20px; 
-            border-left: 5px solid var(--pink);
-            text-align: left;
-        }
-
-        /* Game Buttons */
-        .game-area {
-            margin-top: 30px;
-            height: 150px;
-            position: relative;
-        }
-        #yes-btn { 
-            padding: 12px 40px; 
-            background: var(--pink); 
-            color: white; 
-            border-radius: 50px; 
-            border: none; 
-            font-size: 1.2rem; 
-            cursor: pointer; 
-            font-weight: 600;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-        }
-        #yes-btn:hover { transform: scale(1.1); background: var(--dark-pink); }
-
-        #no-btn { 
-            position: absolute; 
-            padding: 10px 25px; 
-            background: #adb5bd; 
-            color: white; 
-            border-radius: 50px; 
-            border: none; 
-            cursor: pointer; 
-            font-weight: 600;
-            transition: 0.1s;
-        }
+        .rose { position: fixed; top: -10%; animation: fall 4s linear infinite; font-size: 25px; z-index: 3000; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        
+        #yes-btn { background: #ff4d6d; color: white; padding: 12px 35px; border: none; border-radius: 15px; font-size: 1.2rem; cursor: pointer; }
+        #no-btn { position: absolute; background: #888; color: white; padding: 10px 20px; border: none; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>Happy Valentine's Day!</h1>
-    
-    <div class="photo-grid">
-        <div class="box">🧸</div>
-        <div class="box">🍫</div>
-        <div class="box">🌹</div>
-        <div class="box">💖</div>
+    <div id="calc-screen">
+        <div class="calc-display" id="display">0</div>
+        <div class="calc-grid">
+            <button class="btn special" onclick="clr()">AC</button>
+            <button class="btn special">+/-</button>
+            <button class="btn special">%</button>
+            <button class="btn op">÷</button>
+            <button class="btn num" onclick="press('7')">7</button>
+            <button class="btn num" onclick="press('8')">8</button>
+            <button class="btn num" onclick="press('9')">9</button>
+            <button class="btn op">×</button>
+            <button class="btn num" onclick="press('4')">4</button>
+            <button class="btn num" onclick="press('5')">5</button>
+            <button class="btn num" onclick="press('6')">6</button>
+            <button class="btn op">-</button>
+            <button class="btn num" onclick="press('1')">1</button>
+            <button class="btn num" onclick="press('2')">2</button>
+            <button class="btn num" onclick="press('3')">3</button>
+            <button class="btn op">+</button>
+            <button class="btn num zero" onclick="press('0')">0</button>
+            <button class="btn num">.</button>
+            <button class="btn op" onclick="checkCode()">=</button>
+        </div>
     </div>
 
-    <div class="message">
-        "Happy Valentine's Day, my love! ❤️ Your smile lights up my world, and your love fills my life with joy. You're the best thing that's ever happened to me, and I'm so grateful to have you by my side. <br><br>
-        Bahot sari dikkate ayi h apne relationship me par apn ne abhi tk jaise sambhala h wse he aage bhi sambhalna h. I love you more than words can say!"
+    <div id="valentine-page">
+        <div class="card">
+            <h1 style="color: #d90429; font-family: 'Dancing Script', cursive;">Happy Valentine's Day! ❤️</h1>
+            
+           
+
+
+            <p style="color: #444; font-size: 0.95rem; line-height: 1.5;">
+                ""Happy Valentine's Day, my love! ❤️ Your smile lights up my world, and your love fills my life with joy. You're the best thing that's ever happened to me✨, and I'm so grateful to have you by my side😚.
+We’ve faced so many challenges 🧿and gone through tough times in our relationship, but the way we’ve handled everything together has only made us stronger ❤️. No matter what happens, I want you to stay by my side forever❤️🧿. Just like we've managed things until now, I know we will conquer everything ahead together. I love you more than words can ever say! ❤️🫂""
+            </p>
+
+            <div style="height: 150px; position: relative; margin-top: 20px;">
+                <h3 style="color: #c9184a;">Can we keep this 'us' forever?</h3>
+                <button id="yes-btn" onclick="celebrate()">YES!</button>
+                <button id="no-btn" onmouseover="moveNo()" ontouchstart="moveNo()">NO</button>
+            </div>
+        </div>
     </div>
 
-    <div class="game-area">
-        <h3 style="color: #555;">Can we keep this 'us' forever?
-Ab itna jhel hi liya hai, toh kya poori life jhelogi? 😂</h3>
-        <button id="yes-btn" onclick="celebrate()">YES!</button>
-        <button id="no-btn" onmouseover="moveNo()">NO</button>
-    </div>
-</div>
+    <script>
+        let input = "";
+        const disp = document.getElementById('display');
 
-<script>
-    // Falling Roses Effect
-    function createRose() {
-        const r = document.createElement('div');
-        r.className = 'rose'; r.innerHTML = '🌹';
-        r.style.left = Math.random() * 100 + 'vw';
-        r.style.animationDuration = (Math.random() * 2 + 2) + 's';
-        document.body.appendChild(r);
-        setTimeout(() => r.remove(), 4000);
-    }
-    setInterval(createRose, 300);
-
-    // Runaway NO Button Game
-    function moveNo() {
-        const btn = document.getElementById('no-btn');
-        // Screen boundary ke andar hi bhagega
-        const x = Math.random() * (window.innerWidth - btn.offsetWidth - 20);
-        const y = Math.random() * (window.innerHeight - btn.offsetHeight - 20);
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
-    }
-
-    // Celebration on YES
-    function celebrate() {
-        alert("I Knew it! ❤️ I Love You So Much! 😘");
-        // Happy tears/roses rain
-        for(let i=0; i<100; i++) {
-            setTimeout(createRose, i * 30);
+        function press(num) {
+            input += num;
+            disp.innerText = input;
         }
-    }
-</script>
+
+        function clr() {
+            input = "";
+            disp.innerText = "0";
+        }
+
+        function checkCode() {
+            if (input === "3012") {
+                document.getElementById('calc-screen').style.display = 'none';
+                document.getElementById('valentine-page').style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Scroll bar lock
+                startRoses();
+            } else {
+                alert("Incorrect Password!");
+                clr();
+            }
+        }
+
+        function startRoses() {
+            setInterval(() => {
+                const r = document.createElement('div');
+                r.className = 'rose'; r.innerHTML = '🌹';
+                r.style.left = Math.random() * 100 + 'vw';
+                r.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(r);
+                setTimeout(() => r.remove(), 4000);
+            }, 300);
+        }
+
+        function moveNo() {
+            const btn = document.getElementById('no-btn');
+            // Isse button screen ke bahar nahi jayega
+            const maxX = window.innerWidth - btn.offsetWidth - 60;
+            const maxY = window.innerHeight - btn.offsetHeight - 60;
+            const x = Math.max(20, Math.floor(Math.random() * maxX));
+            const y = Math.max(20, Math.floor(Math.random() * maxY));
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.style.position = 'fixed';
+        }
+
+        function celebrate() {
+            alert("I Knew it! ❤️ I Love You Forever Baby! 😘");
+            for(let i=0; i<100; i++) setTimeout(startRoses, i*50);
+        }
+    </script>
 </body>
 </html>
